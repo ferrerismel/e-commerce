@@ -2,11 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart } from 'lucide-react';
+import { Heart, ShoppingCart } from 'lucide-react';
 import { Product } from '@/types/database';
 import { formatPrice, getSupabaseImageUrl } from '@/lib/utils';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useCartStore } from '@/hooks/useCartStore';
 
 interface ProductCardProps {
   product: Product;
@@ -15,6 +16,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const addItem = useCartStore((state) => state.addItem);
 
   const hasDiscount = product.compare_price && product.compare_price > product.price;
   const discountPercentage = hasDiscount
@@ -22,6 +24,20 @@ export default function ProductCard({ product }: ProductCardProps) {
     : 0;
 
   const isOutOfStock = product.stock_quantity === 0;
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isOutOfStock) {
+      addItem(product, 1);
+    }
+  };
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsWishlisted(!isWishlisted);
+  };
 
   return (
     <motion.div
@@ -32,7 +48,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link href={`/producto/${product.slug}`}>
+      <Link href={`/producto/${product.slug}`} className="block">
         {/* Product Image */}
         <div className="relative aspect-square overflow-hidden bg-dxilva-gray-light dark:bg-dxilva-gray-dark">
           {product.thumbnail_url ? (
@@ -70,11 +86,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Wishlist Button */}
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsWishlisted(!isWishlisted);
-            }}
-            className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-300 ${
+            onClick={handleWishlist}
+            className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-300 z-10 ${
               isWishlisted
                 ? 'bg-red-500 text-white'
                 : 'bg-white/80 dark:bg-black/80 text-gray-700 dark:text-gray-300 hover:bg-dxilva-yellow hover:text-dxilva-black'
@@ -91,12 +104,14 @@ export default function ProductCard({ product }: ProductCardProps) {
               opacity: isHovered && !isOutOfStock ? 1 : 0,
               y: isHovered && !isOutOfStock ? 0 : 10,
             }}
-            className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent"
+            className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent z-10"
           >
             <button
+              onClick={handleAddToCart}
               disabled={isOutOfStock}
-              className="w-full btn-primary text-sm py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-primary text-sm py-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
+              <ShoppingCart className="w-4 h-4" />
               {isOutOfStock ? 'Agotado' : 'Añadir al Carrito'}
             </button>
           </motion.div>
@@ -106,7 +121,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="p-4 space-y-2">
           {/* Category */}
           <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-            {product.category_id || 'General'}
+            {product.category_id ? 'Producto' : 'General'}
           </p>
 
           {/* Product Name */}
