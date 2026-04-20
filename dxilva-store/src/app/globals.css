@@ -1,151 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Importar fuente Cinzel desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
-
-:root {
-  /* Colores principales D'XILVA */
-  --dxilva-black: #000000;
-  --dxilva-yellow: #F7BB3C;
-  --dxilva-white: #FFFFFF;
-  
-  /* Colores semánticos */
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --primary: 43 96% 60%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 43 96% 60%;
+    --accent-foreground: 0 0% 0%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 43 96% 60%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --primary: 43 96% 60%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --accent: 43 96% 60%;
+    --accent-foreground: 0 0% 0%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 65%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 43 96% 60%;
   }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-dxilva-white text-dxilva-black dark:bg-dxilva-black dark:text-dxilva-white;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+  }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: 'Cinzel', serif;
+@layer components {
+  .btn-primary {
+    @apply bg-dxilva-yellow hover:bg-dxilva-yellow-hover text-dxilva-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-dxilva-black dark:bg-dxilva-white text-dxilva-white dark:text-dxilva-black hover:bg-dxilva-gray-dark dark:hover:bg-dxilva-gray-light font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply border-2 border-dxilva-black dark:border-dxilva-white text-dxilva-black dark:text-dxilva-white hover:bg-dxilva-black hover:text-dxilva-white dark:hover:bg-dxilva-white dark:hover:text-dxilva-black font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-white dark:bg-dxilva-gray-dark rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 border border-dxilva-gray-light dark:border-dxilva-gray-dark rounded-lg bg-white dark:bg-dxilva-gray-dark focus:outline-none focus:ring-2 focus:ring-dxilva-yellow focus:border-transparent transition-all duration-300;
+  }
+
+  .section-title {
+    @apply font-cinzel text-3xl md:text-4xl font-bold text-dxilva-black dark:text-dxilva-white mb-4;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-dxilva-yellow to-dxilva-yellow-hover bg-clip-text text-transparent;
+  }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Utilidades personalizadas D'XILVA */
 @layer utilities {
-  .text-dxilva-black {
-    color: var(--dxilva-black);
+  .text-balance {
+    text-wrap: balance;
   }
-  
-  .text-dxilva-yellow {
-    color: var(--dxilva-yellow);
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
   }
-  
-  .text-dxilva-white {
-    color: var(--dxilva-white);
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
   }
-  
-  .bg-dxilva-black {
-    background-color: var(--dxilva-black);
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  
-  .bg-dxilva-yellow {
-    background-color: var(--dxilva-yellow);
-  }
-  
-  .bg-dxilva-white {
-    background-color: var(--dxilva-white);
-  }
-  
-  .border-dxilva-yellow {
-    border-color: var(--dxilva-yellow);
-  }
-  
-  .hover\:bg-dxilva-yellow:hover {
-    background-color: var(--dxilva-yellow);
-  }
-  
-  .hover\:text-dxilva-yellow:hover {
-    color: var(--dxilva-yellow);
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
-/* Estilos para scrollbars personalizados */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  @apply bg-dxilva-gray-light dark:bg-dxilva-gray-dark;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--dxilva-yellow);
-  border-radius: 4px;
+  @apply bg-dxilva-yellow rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4a017;
-}
-
-/* Animaciones suaves */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-/* Estilos para botones D'XILVA */
-.btn-primary {
-  @apply bg-dxilva-yellow text-dxilva-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg active:scale-95;
-}
-
-.btn-secondary {
-  @apply bg-dxilva-black text-dxilva-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg active:scale-95;
-}
-
-.btn-outline {
-  @apply border-2 border-dxilva-yellow text-dxilva-yellow font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-dxilva-yellow hover:text-dxilva-black active:scale-95;
-}
-
-/* Card styles */
-.card {
-  @apply bg-white dark:bg-dxilva-gray-dark rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-dxilva-gray-light dark:border-dxilva-gray-dark;
-}
-
-/* Section title */
-.section-title {
-  @apply font-cinzel text-2xl md:text-3xl lg:text-4xl font-bold text-dxilva-black dark:text-dxilva-white;
+  @apply bg-dxilva-yellow-hover;
 }
