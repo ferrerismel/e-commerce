@@ -128,14 +128,24 @@ a {
 }
 
 /* Estilos para botones D'XILVA */
-.btn-dxilva-primary {
+.btn-primary {
   @apply bg-dxilva-yellow text-dxilva-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg active:scale-95;
 }
 
-.btn-dxilva-secondary {
+.btn-secondary {
   @apply bg-dxilva-black text-dxilva-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg active:scale-95;
 }
 
-.btn-dxilva-outline {
+.btn-outline {
   @apply border-2 border-dxilva-yellow text-dxilva-yellow font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-dxilva-yellow hover:text-dxilva-black active:scale-95;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white dark:bg-dxilva-gray-dark rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-dxilva-gray-light dark:border-dxilva-gray-dark;
+}
+
+/* Section title */
+.section-title {
+  @apply font-cinzel text-2xl md:text-3xl lg:text-4xl font-bold text-dxilva-black dark:text-dxilva-white;
 }
