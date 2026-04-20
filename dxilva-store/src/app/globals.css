@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Importar fuente Cinzel desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Colores principales D'XILVA */
+  --dxilva-black: #000000;
+  --dxilva-yellow: #F7BB3C;
+  --dxilva-white: #FFFFFF;
+  
+  /* Colores semánticos */
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Cinzel', serif;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Utilidades personalizadas D'XILVA */
+@layer utilities {
+  .text-dxilva-black {
+    color: var(--dxilva-black);
+  }
+  
+  .text-dxilva-yellow {
+    color: var(--dxilva-yellow);
+  }
+  
+  .text-dxilva-white {
+    color: var(--dxilva-white);
+  }
+  
+  .bg-dxilva-black {
+    background-color: var(--dxilva-black);
+  }
+  
+  .bg-dxilva-yellow {
+    background-color: var(--dxilva-yellow);
+  }
+  
+  .bg-dxilva-white {
+    background-color: var(--dxilva-white);
+  }
+  
+  .border-dxilva-yellow {
+    border-color: var(--dxilva-yellow);
+  }
+  
+  .hover\:bg-dxilva-yellow:hover {
+    background-color: var(--dxilva-yellow);
+  }
+  
+  .hover\:text-dxilva-yellow:hover {
+    color: var(--dxilva-yellow);
+  }
+}
+
+/* Estilos para scrollbars personalizados */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dxilva-yellow);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4a017;
+}
+
+/* Animaciones suaves */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Estilos para botones D'XILVA */
+.btn-dxilva-primary {
+  @apply bg-dxilva-yellow text-dxilva-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg active:scale-95;
+}
+
+.btn-dxilva-secondary {
+  @apply bg-dxilva-black text-dxilva-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg active:scale-95;
+}
+
+.btn-dxilva-outline {
+  @apply border-2 border-dxilva-yellow text-dxilva-yellow font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-dxilva-yellow hover:text-dxilva-black active:scale-95;
+}
